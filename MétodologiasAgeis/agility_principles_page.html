@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Princípios da agilidade</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            background: rgba(40, 44, 52, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                        0 0 20px rgba(97, 218, 251, 0.1);
+            padding: 50px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(97, 218, 251, 0.03) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, -20px) rotate(180deg); }
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .title {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #61dafb 0%, #21d4fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -1px;
+        }
+        
+        .intro-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #8892b0;
+            text-align: justify;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+        
+        .reference {
+            color: #8892b0;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+        
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .principle-card {
+            background: rgba(30, 40, 60, 0.6);
+            border: 1px solid rgba(97, 218, 251, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .principle-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(97, 218, 251, 0.3);
+            box-shadow: 0 10px 30px rgba(97, 218, 251, 0.1);
+        }
+        
+        .principle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #64ffda, #61dafb);
+        }
+        
+        .principle-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #64ffda, #61dafb);
+            color: #0f0f23;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        
+        .principle-text {
+            color: #ccd6f6;
+            line-height: 1.7;
+            font-size: 1rem;
+            text-align: justify;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(100, 255, 218, 0.15) 0%, rgba(129, 236, 236, 0.15) 100%);
+            color: #64ffda;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        
+        .observation-box {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-left: 4px solid #ffc107;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(255, 193, 7, 0.1);
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .observation-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 193, 7, 0.2);
+            border-color: rgba(255, 193, 7, 0.5);
+        }
+        
+        .observation-icon {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+            color: #1a1a2e;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+            font-weight: bold;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 6px 25px rgba(255, 193, 7, 0.5);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+            }
+        }
+        
+        .observation-content h3 {
+            color: #ffc107;
+            margin: 0 0 12px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .observation-content p {
+            color: #a7b6c2;
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+        
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #61dafb, #64ffda);
+            transform-origin: left;
+            animation: progress 5s ease-out;
+        }
+        
+        @keyframes progress {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        
+        .conclusion-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccd6f6;
+            text-align: justify;
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(30, 40, 60, 0.4);
+            border-radius: 12px;
+            border-left: 4px solid #ffc107;
+        }
+        
+        @media (max-width: 1024px) {
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 25px;
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .intro-text {
+                font-size: 1.05rem;
+            }
+            
+            .principle-card {
+                padding: 18px;
+            }
+            
+            .principle-text {
+                font-size: 0.95rem;
+            }
+            
+            .conclusion-text {
+                font-size: 1rem;
+                padding: 20px;
+            }
+            
+            .observation-box {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .observation-icon {
+                margin-bottom: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            .title {
+                font-size: 1.9rem;
+            }
+            
+            .intro-text {
+                font-size: 1rem;
+            }
+            
+            .principle-card {
+                padding: 15px;
+            }
+            
+            .principle-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reading-progress"></div>
+    
+    <div class="container">
+        <div class="content">
+            <a href="home.html" style="background-color: #1a237e; color: whitesmoke; font-weight: bold; padding: 8px 16px;">Voltar</a>
+            <h1 class="title">Princípios da agilidade</h1>
+            
+            <div class="intro-text">
+                A <span class="highlight">Agile Alliance</span> <span class="reference">(consulte [Agi03], [Fow01])</span> estabelece <span class="highlight">12 princípios</span> para alcançar a agilidade:
+            </div>
+            
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <div class="principle-number">1</div>
+                    <div class="principle-text">
+                        A maior prioridade é <span class="highlight">satisfazer o cliente</span> com entrega adiantada e contínua de <span class="highlight">software funcionando</span>.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <div class="principle-number">2</div>
+                    <div class="principle-text">
+                        <span class="highlight">Aceite bem os pedidos de alterações</span>, mesmo com o desenvolvimento adiantado. Os processos ágeis se aproveitam das mudanças para a vantagem competitiva do cliente.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <div class="principle-number">3</div>
+                    <div class="principle-text">
+                        Entregue <span class="highlight">software em funcionamento frequentemente</span>, de algumas semanas a alguns meses, dando preferência a <span class="highlight">intervalos mais curtos</span>.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <div class="principle-number">4</div>
+                    <div class="principle-text">
+                        O pessoal do comercial e os desenvolvedores devem <span class="highlight">trabalhar em conjunto diariamente</span> ao longo de todo o projeto.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <div class="principle-number">5</div>
+                    <div class="principle-text">
+                        Construa projetos em torno de <span class="highlight">pessoas motivadas</span>. Dê a elas o ambiente e o apoio necessários e acredite que elas farão o trabalho corretamente.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <div class="principle-number">6</div>
+                    <div class="principle-text">
+                        O método mais eficiente e efetivo de transmitir informações para e dentro de uma equipe de desenvolvimento é uma <span class="highlight">conversa aberta, presencial</span>.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <div class="principle-number">7</div>
+                    <div class="principle-text">
+                        <span class="highlight">Software em funcionamento</span> é a principal medida de progresso.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <div class="principle-number">8</div>
+                    <div class="principle-text">
+                        Os processos ágeis promovem <span class="highlight">desenvolvimento sustentável</span>. Proponentes, desenvolvedores e usuários devem estar aptos a manter um <span class="highlight">ritmo constante</span> indefinidamente.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <div class="principle-number">9</div>
+                    <div class="principle-text">
+                        Atenção contínua para com a <span class="highlight">excelência técnica</span> e para com bons projetos aumenta a agilidade.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <div class="principle-number">10</div>
+                    <div class="principle-text">
+                        <span class="highlight">Simplicidade</span> - a arte de maximizar o volume de trabalho não realizado é essencial.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <div class="principle-number">11</div>
+                    <div class="principle-text">
+                        As melhores arquiteturas, requisitos e projetos surgem de <span class="highlight">equipes auto-organizadas</span>.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <div class="principle-number">12</div>
+                    <div class="principle-text">
+                        Em intervalos regulares, a equipe <span class="highlight">se avalia</span> para ver como pode se tornar mais eficiente, então, sintoniza e ajusta seu comportamento de acordo.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="observation-box">
+                <div class="observation-icon">💡</div>
+                <div class="observation-content">
+                    <h3>Observação Importante</h3>
+                    <p>Você não tem de escolher entre agilidade ou engenharia de software. Em vez disso, defina uma abordagem de engenharia de software que seja ágil.</p>
+                </div>
+            </div>
+            
+            <div class="conclusion-text">
+                Nem todo modelo de processo ágil aplica esses 12 princípios atribuindo-lhes <span class="highlight">pesos iguais</span>, e alguns modelos preferem ignorar (ou pelo menos subestimar) a importância de um ou mais desses princípios. Entretanto, os princípios definem um <span class="highlight">espírito ágil</span> mantido em cada um dos modelos de processo apresentados neste capítulo.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

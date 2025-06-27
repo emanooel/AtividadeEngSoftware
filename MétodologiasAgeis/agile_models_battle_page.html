@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Guerra dos Métodos Ágeis: Quem Vai Sobreviver?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .lightning-strikes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .lightning {
+            position: absolute;
+            width: 3px;
+            height: 100vh;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                #ff00ff 30%, 
+                #00ffff  50%, 
+                #ffff00 70%, 
+                transparent 100%);
+            box-shadow: 0 0 20px currentColor;
+            animation: lightning 6s ease-in-out infinite;
+            opacity: 0;
+        }
+        
+        .lightning:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .lightning:nth-child(2) {
+            left: 50%;
+            animation-delay: 2s;
+        }
+        
+        .lightning:nth-child(3) {
+            left: 80%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes lightning {
+            0%, 90%, 100% { 
+                opacity: 0;
+                transform: scaleY(0);
+            }
+            5%, 15% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+        }
+        
+        .container {
+            max-width: 1100px;
+            background: rgba(40, 44, 52, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                        0 0 20px rgba(97, 218, 251, 0.1);
+            padding: 50px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(97, 218, 251, 0.03) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, -20px) rotate(180deg); }
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ff00ff 0%, #00ffff 25%, #ffff00 50%, #ff0080 75%, #8000ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 30px rgba(255, 0, 255, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(0, 255, 255, 0.8); }
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #ff00ff;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+        }
+        
+        .hook-section {
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1) 0%, rgba(0, 255, 255, 0.1) 100%);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00) 1;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hook-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 0, 255, 0.1), transparent);
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .hook-section h3 {
+            color: #ff00ff;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+        
+        .hook-section p {
+            color: #ccd6f6;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .text-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccd6f6;
+            text-align: justify;
+            hyphens: auto;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+        
+        .text-content p {
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 0, 255, 0.15) 0%, rgba(0, 255, 255, 0.15) 100%);
+            color: #ff00ff;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            text-shadow: 0 0 5px rgba(255, 0, 255, 0.3);
+        }
+        
+        .reference {
+            color: #8892b0;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+        
+        .section-divider {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #ff00ff 20%, 
+                #00ffff 40%, 
+                #ffff00 60%, 
+                #ff0080 80%, 
+                transparent 100%);
+            margin: 50px 0;
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+            animation: dividerPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes dividerPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+            }
+        }
+        
+        .method-section {
+            background: rgba(30, 40, 60, 0.6);
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.1);
+            position: relative;
+        }
+        
+        .method-title {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .method-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+        
+        .scrum-section {
+            border-color: rgba(0, 255, 255, 0.3);
+        }
+        
+        .scrum-section .method-title {
+            background: linear-gradient(135deg, #00ffff 0%, #0080ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .am-section {
+            border-color: rgba(255, 255, 0, 0.3);
+        }
+        
+        .am-section .method-title {
+            background: linear-gradient(135deg, #ffff00 0%, #ff8000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .pulse-quote, .pulse-highlight {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 152, 0, 0.15) 100%);
+            border: 2px solid rgba(255, 193, 7, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+            animation: pulseBorder 2s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+        }
+        
+        @keyframes pulseBorder {
+            0% {
+                border-color: rgba(255, 193, 7, 0.4);
+                box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+                transform: scale(1);
+            }
+            50% {
+                border-color: rgba(255, 193, 7, 0.8);
+                box-shadow: 0 0 30px rgba(255, 193, 7, 0.4);
+                transform: scale(1.02);
+            }
+            100% {
+                border-color: rgba(255, 193, 7, 0.4);
+                box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+                transform: scale(1);
+            }
+        }
+        
+        .survival-tip {
+            background: linear-gradient(135deg, rgba(255, 0, 128, 0.15) 0%, rgba(128, 0, 255, 0.15) 100%);
+            border-color: rgba(255, 0, 128, 0.4);
+        }
+        
+        .survival-tip p {
+            color: #ff0080;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .scrum-core {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.15) 0%, rgba(0, 128, 255, 0.15) 100%);
+            border-color: rgba(0, 255, 255, 0.4);
+        }
+        
+        .scrum-core p {
+            color: #00ffff;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .am-philosophy {
+            background: linear-gradient(135deg, rgba(255, 255, 0, 0.15) 0%, rgba(255, 128, 0, 0.15) 100%);
+            border-color: rgba(255, 255, 0, 0.4);
+        }
+        
+        .am-philosophy p {
+            color: #ffff00;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .scrum-elements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .scrum-element {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .scrum-element:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.1);
+        }
+        
+        .scrum-element h4 {
+            color: #00ffff;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+        
+        .scrum-element p {
+            color: #ccd6f6;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .am-principles {
+            background: rgba(255, 255, 0, 0.05);
+            border: 1px solid rgba(255, 255, 0, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .am-principles h4 {
+            color: #ffff00;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+        }
+        
+        .principle-item {
+            background: rgba(255, 128, 0, 0.05);
+            border-left: 4px solid #ff8000;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .principle-item h5 {
+            color: #ff8000;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px rgba(255, 128, 0, 0.3);
+        }
+        
+        .principle-item p {
+            color: #ccd6f6;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff, #ffff00);
+            transform-origin: left;
+            animation: progress 6s ease-out;
+        }
+        
+        @keyframes progress {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 25px;
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .method-title {
+                font-size: 1.8rem;
+            }
+            
+            .text-content {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            
+            .method-section {
+                padding: 25px;
+            }
+            
+            .scrum-elements {
+                grid-template-columns: 1fr;
+            }
+            
+            .lightning {
+                height: 1px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            .title {
+                font-size: 1.7rem;
+            }
+            
+            .text-content {
+                font-size: 0.95rem;
+            }
+            
+            .text-content p {
+                text-indent: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lightning-strikes">
+        <div class="lightning"></div>
+        <div class="lightning"></div>
+        <div class="lightning"></div>
+    </div>
+    
+    <div class="reading-progress"></div>
+    
+    <div class="container">
+        <div class="content">
+            <a href="home.html" style="background-color: #1a237e; color: whitesmoke; font-weight: bold; padding: 8px 16px;">Voltar</a>
+            <h1 class="title">A Guerra dos Métodos Ágeis</h1>
+            <div class="subtitle">Quem Vai Sobreviver à Batalha?</div>
+            
+            <div class="hook-section">
+                <h3>⚔️ A BATALHA ÉPICA COMEÇOU!</h3>
+                <p>Em um mundo onde metodologias nascem e morrem como estrelas cadentes, uma guerra silenciosa acontece nos bastidores do desenvolvimento de software. XP domina o campo de batalha, mas rivais poderosos emergem das sombras. Quem será o último sobrevivente?</p>
+            </div>
+            
+            <div class="text-content">
+                <p>A história da engenharia de software é recheada de metodologias e descrições de processos, métodos e notações de modelagem, ferramentas e tecnologias <span class="highlight">obsoletas</span>. Todas atingiram certa notoriedade e foram ofuscadas por algo novo e (supostamente) melhor. Com a introdução de uma ampla variedade de modelos de processos ágeis - todos disputando aceitação pela comunidade de desenvolvimento de software -, o movimento ágil está seguindo o mesmo caminho histórico.</p>
+                
+                <div class="pulse-highlight survival-tip">
+                    <p>💡 <strong>Lei da Sobrevivência:</strong> <em>Na engenharia de software, apenas os métodos mais adaptáveis sobrevivem!</em> Cada metodologia luta por seu lugar no ecossistema do desenvolvimento.</p>
+                </div>
+                
+                <p>Conforme citado na última seção, o modelo mais utilizado entre os modelos de processos ágeis é o <span class="highlight">Extreme Programming (XP)</span>. Porém, muitos outros têm sido propostos e encontram-se em uso no setor. Nesta seção, apresentamos um breve panorama de quatro métodos ágeis comuns: <span class="highlight">Scrum</span>, <span class="highlight">DSDM</span>, <span class="highlight">Modelagem Ágil (AM)</span> e <span class="highlight">Processo Unificado Ágil (AUP)</span>.</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="method-section scrum-section">
+                <h2 class="method-title">
+                    <span class="method-icon">🏉</span>
+                    SCRUM
+                </h2>
+                
+                <div class="pulse-highlight scrum-core">
+                    <p>🏉 <strong>Segredo do Scrum:</strong> <em>O nome vem do rugby!</em> Como um scrum no rugby, todos trabalham juntos em formação para avançar o projeto para frente!</p>
+                </div>
+                
+                <div class="text-content">
+                    <p><span class="highlight">Scrum</span> (o nome provém de uma atividade que ocorre durante a partida de rugby) é um método de desenvolvimento ágil de software concebido por <span class="highlight">Jeff Sutherland</span> e sua equipe de desenvolvimento no início dos anos 1990. Mais recentemente, <span class="highlight">Schwaber e Beedle</span> <span class="reference">[Sch01b]</span> realizaram desenvolvimentos adicionais nos métodos Scrum.</p>
+                    
+                    <p>Os princípios do Scrum são coerentes com o <span class="highlight">manifesto ágil</span> e são usados para orientar as atividades de desenvolvimento dentro de um processo que incorpora as seguintes atividades metodológicas: requisitos, análise, projeto, evolução e entrega. Em cada atividade metodológica, ocorrem tarefas realizadas dentro de um padrão de processo chamado <span class="highlight">sprint</span>.</p>
+                    
+                    <p>O trabalho realizado dentro de um sprint (o número de sprints necessários para cada atividade metodológica varia dependendo do tamanho e da complexidade do produto) é adaptado ao problema em questão e definido, e muitas vezes modificado em tempo real, pela <span class="highlight">equipe Scrum</span>.</p>
+                </div>
+                
+                <div class="scrum-elements">
+                    <div class="scrum-element">
+                        <h4>📋 Backlog</h4>
+                        <p>Uma lista com prioridades dos requisitos ou funcionalidades do projeto que fornecem <span class="highlight">valor comercial</span> ao cliente. Os itens podem ser adicionados a qualquer momento (é assim que as alterações são introduzidas). O gerente de produto avalia o registro e atualiza as prioridades conforme solicitado.</p>
+                    </div>
+                    
+                    <div class="scrum-element">
+                        <h4>⚡ Sprints</h4>
+                        <p>Consistem em unidades de trabalho solicitadas para atingir um requisito estabelecido no registro de trabalho (backlog) e que precisa ser ajustado dentro de um <span class="highlight">prazo já fechado</span> (tipicamente 30 dias). Alterações não são introduzidas durante execução de sprints. Portanto, o sprint permite que os membros de uma equipe trabalhem em um ambiente de curto prazo, porém estável.</p>
+                    </div>
+                    
+                    <div class="scrum-element">
+                        <h4>🗣️ Reuniões Scrum</h4>
+                        <p>São reuniões curtas (tipicamente <span class="highlight">15 minutos</span>), realizadas diariamente pela equipe Scrum. São feitas três perguntas-chave respondidas por todos os membros da equipe <span class="reference">[Noy02]</span>:</p>
+                        <ul style="margin-top: 10px; color: #8892b0;">
+                            <li>• O que você realizou desde a última reunião de equipe?</li>
+                            <li>• Quais obstáculos está encontrando?</li>
+                            <li>• O que planeja realizar até a próxima reunião da equipe?</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="scrum-element">
+                        <h4>🎯 Demos</h4>
+                        <p>Entrega do <span class="highlight">incremento de software</span> ao cliente para que a funcionalidade implementada possa ser demonstrada e avaliada por ele. É importante notar que a demo pode não ter toda a funcionalidade planejada, mas sim funções que possam ser entregues no prazo estipulado.</p>
+                    </div>
+                </div>
+                
+                <div class="text-content">
+                    <p>Beedle e seus colegas <span class="reference">[Bee99]</span> apresentam uma ampla discussão sobre esses padrões: <em>"O Scrum pressupõe a existência do caos..."</em>. Os padrões de processos do Scrum capacitam uma equipe de software a trabalhar com sucesso em um mundo onde é impossível eliminar a incerteza.</p>
+                </div>
+            </div>
+            
+            <div class="method-section am-section">
+                <h2 class="method-title">
+                    <span class="method-icon">🎨</span>
+                    Modelagem Ágil (AM)
+                </h2>
+                
+                <div class="pulse-highlight am-philosophy">
+                    <p>🎨 <strong>Filosofia AM:</strong> <em>"Os modelos ágeis são mais eficientes do que os tradicionais pelo fato de serem simplesmente bons, pois não têm a obrigação de ser perfeitos!"</em></p>
+                </div>
+                
+                <div class="text-content">
+                    <p>Existem muitas situações em que engenheiros de software têm de desenvolver <span class="highlight">sistemas grandes e críticos</span> para o negócio. O escopo e a complexidade desses sistemas devem ser modelados de modo que (1) todas as partes envolvidas possam entender melhor quais requisitos devem ser atingidos, (2) o problema possa ser subdividido eficientemente entre as pessoas que têm de solucioná-lo e (3) a qualidade possa ser avaliada enquanto se está projetando e desenvolvendo o sistema.</p>
+                    
+                    <p>Porém, em alguns casos pode ser desencorajador gerenciar o volume de notação exigido, o grau de formalismo sugerido, o mero tamanho dos modelos para grandes projetos e a dificuldade em manter o(s) modelo(s) à medida que ocorrem mudanças. Existe uma metodologia ágil para a modelagem de engenharia de software que possa fornecer algum alívio?</p>
+                    
+                    <p>No "The Official Agile Modeling Site", <span class="highlight">Scott Ambler</span> <span class="reference">[Amb02a]</span> descreve modelagem ágil (AM) da seguinte maneira:</p>
+                    
+                    <blockquote style="background: rgba(255, 255, 0, 0.1); border-left: 4px solid #ffff00; padding: 20px; margin: 20px 0; font-style: italic; color: #e0e6ff;">
+                        "Modelagem ágil (AM) consiste em uma metodologia prática, voltada para a modelagem e documentação de sistemas baseados em software. Simplificando, modelagem ágil consiste em um conjunto de valores, princípios e práticas voltados para a modelagem do software que podem ser aplicados a um projeto de desenvolvimento de software de forma leve e eficiente. Os modelos ágeis são mais eficientes do que os tradicionais pelo fato de serem simplesmente bons, pois não têm a obrigação de ser perfeitos."
+                    </blockquote>
+                </div>
+                
+                <div class="am-principles">
+                    <h4>🎯 Princípios Únicos da Modelagem Ágil</h4>
+                    
+                    <div class="principle-item">
+                        <h5>🎯 Modelar com um objetivo</h5>
+                        <p>O desenvolvedor que utilizar a AM deve ter um objetivo antes de criar o modelo (por exemplo, comunicar informações ao cliente ou ajudar a compreender melhor algum aspecto do software). Uma vez identificado o objetivo, ficará mais evidente o tipo de notação a ser utilizado e o nível de detalhamento necessário.</p>
+                    </div>
+                    
+                    <div class="principle-item">
+                        <h5>🔄 Usar vários modelos</h5>
+                        <p>Há muitos modelos e notações diferentes que podem ser usados para descrever software. Para a maioria dos projetos, somente um subconjunto é essencial. A AM sugere que, para propiciar a percepção necessária, cada modelo deve apresentar um aspecto diferente do sistema e devem ser usados somente aqueles que valorizem esses modelos para o público pretendido.</p>
+                    </div>
+                    
+                    <div class="principle-item">
+                        <h5>🎒 Viajar leve</h5>
+                        <p>Conforme o trabalho de engenharia de software prossegue, conserve apenas aqueles modelos que terão valor no longo prazo e desfaça-se do restante. Todo artefato mantido deve sofrer manutenção à medida que mudanças ocorram. Isso representa trabalho que retarda a equipe.</p>
+                    </div>
+                    
+                    <div class="principle-item">
+                        <h5>📝 Conteúdo é mais importante do que a representação</h5>
+                        <p>A modelagem deve transmitir informações para seu público pretendido. Um modelo sintaticamente perfeito que transmita pouco conteúdo útil não possui tanto valor quanto aquele com notações falhas que, no entanto, fornece conteúdo valioso para seu público-alvo.</p>
+                    </div>
+                    
+                    <div class="principle-item">
+                        <h5>🔧 Adaptar localmente</h5>
+                        <p>A modelagem deve ser adaptada às necessidades da equipe ágil. Um segmento de vulto da comunidade da engenharia de software adotou a <span class="highlight">linguagem de modelagem unificada (Unified Modeling Language, UML)</span> como o método preferido para análise representativa e para modelos de projeto. O Processo Unificado (Capítulo 4) foi desenvolvido para fornecer uma metodologia para a aplicação da UML. <span class="highlight">Scott Ambler</span> <span class="reference">[Amb06]</span> desenvolveu uma versão simplificada do UP que integra sua filosofia de modelagem ágil.</p>
+                    </div>
+                </div>
+                
+                <div class="pulse-highlight am-philosophy">
+                    <p>🎨 <strong>Essência da AM:</strong> <em>Coragem para rejeitar projetos e refatorá-los + Humildade para reconhecer que desenvolvedores não têm todas as respostas!</em></p>
+                </div>
+                
+                <div class="text-content">
+                    <p>A modelagem ágil adota todos os valores coerentes com o <span class="highlight">manifesto ágil</span>. Sua filosofia reconhece que uma equipe ágil deve ter a <span class="highlight">coragem</span> de tomar decisões que possam causar a rejeição de um projeto e sua refatoração. A equipe também deve ter <span class="highlight">humildade</span> para reconhecer que os profissionais de tecnologia não possuem todas as respostas e que os experts em negócios e outros envolvidos devem ser respeitados e integrados ao processo.</p>
+                    
+                    <p>Ambler <span class="reference">[Amb02a]</span> observa que <em>"Toda vez que se opta por manter um modelo, troca-se a agilidade pela conveniência de ter aquela informação acessível para a equipe de uma forma abstrata (já que, potencialmente, aumenta a comunicação dentro da equipe, assim como com os envolvidos no projeto)"</em>.</p>
+                </div>
+            </div>
+            
+            <div class="hook-section">
+                <h3>🏆 O VEREDITO DA BATALHA</h3>
+                <p>Na guerra dos métodos ágeis, não há um único vencedor absoluto. Cada metodologia tem suas forças e fraquezas, suas tribos de seguidores fiéis. O verdadeiro vencedor é quem sabe escolher a arma certa para cada batalha!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

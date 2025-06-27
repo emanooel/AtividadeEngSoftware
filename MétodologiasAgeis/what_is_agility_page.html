@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O que é agilidade?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            background: rgba(40, 44, 52, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                        0 0 20px rgba(97, 218, 251, 0.1);
+            padding: 50px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(97, 218, 251, 0.03) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, -20px) rotate(180deg); }
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .title {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #61dafb 0%, #21d4fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -1px;
+        }
+        
+        .text-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccd6f6;
+            text-align: justify;
+            hyphens: auto;
+            font-weight: 400;
+        }
+        
+        .text-content p {
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+        
+        .text-content p:first-child {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #8892b0;
+            text-indent: 0;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(100, 255, 218, 0.15) 0%, rgba(129, 236, 236, 0.15) 100%);
+            color: #64ffda;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        
+        .author-citation {
+            color: #8892b0;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+        
+        .quote-mark {
+            font-size: 4rem;
+            color: rgba(97, 218, 251, 0.2);
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-family: 'Monaco', 'Fira Code', monospace;
+            opacity: 0.3;
+        }
+        
+        .observation-box {
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            border-left: 4px solid #dc3545;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(220, 53, 69, 0.1);
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .observation-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(220, 53, 69, 0.2);
+            border-color: rgba(220, 53, 69, 0.5);
+        }
+        
+        .observation-icon {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            font-weight: bold;
+        }
+        
+        .observation-content h3 {
+            color: #ff6b6b;
+            margin: 0 0 12px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .observation-content p {
+            color: #a7b6c2;
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+        
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #61dafb, #64ffda);
+            transform-origin: left;
+            animation: progress 4s ease-out;
+        }
+        
+        @keyframes progress {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 25px;
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .text-content {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            
+            .text-content p:first-child {
+                font-size: 1.1rem;
+            }
+            
+            .quote-mark {
+                font-size: 3rem;
+                top: 20px;
+                left: 20px;
+            }
+            
+            .observation-box {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .observation-icon {
+                margin-bottom: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            .title {
+                font-size: 1.9rem;
+            }
+            
+            .text-content {
+                font-size: 0.95rem;
+            }
+            
+            .text-content p {
+                text-indent: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reading-progress"></div>
+    
+    <div class="container">
+        <div class="quote-mark">"</div>
+        
+        <div class="content">
+            <a href="home.html" style="background-color: #1a237e; color: whitesmoke; font-weight: bold; padding: 8px 16px;">Voltar</a>
+            <h1 class="title">O que é agilidade?</h1>
+            
+            <div class="text-content">
+                <p>Afinal, o que é agilidade no contexto da engenharia de software? <span class="author-citation">Ivar Jacobson [Jac02a]</span> apresenta uma discussão útil.</p>
+                
+                <p>Atualmente, <span class="highlight">agilidade</span> se tornou a palavra da moda quando se descreve um processo de software moderno. Todo mundo é ágil. Uma <span class="highlight">equipe ágil</span> é aquela rápida e capaz de responder de modo adequado às mudanças. <span class="highlight">Mudança</span> tem tudo a ver com desenvolvimento de software. Mudança no software que está sendo criado, mudança nos membros da equipe, mudança devido a novas tecnologias, mudanças de todos os tipos que poderão ter um impacto no produto que está em construção ou no projeto que cria o produto.</p>
+                
+                <p>Suporte à mudança deve ser incorporado a tudo o que fazemos em software, algo que abraçamos porque é o <span class="highlight">coração e a alma do software</span>. Uma equipe ágil reconhece que o software é desenvolvido por indivíduos trabalhando em equipes e que as habilidades dessas pessoas, suas capacidades em colaborar estão no cerne do sucesso do projeto.</p>
+                
+                <p>De acordo com Jacobson, a difusão da mudança é o principal condutor para a agilidade. Os engenheiros de software devem ser rápidos, caso queiram assimilar as rápidas mudanças que Jacobson descreve.</p>
+                
+                <p>Entretanto, agilidade é mais do que uma resposta à mudança. Ela abrange também a <span class="highlight">filosofia proposta no manifesto</span> citado no início deste capítulo. Ela incentiva a estruturação e as atitudes em equipe que tornam a comunicação mais fácil (entre membros da equipe, entre o pessoal ligado à tecnologia e o pessoal da área comercial, entre os engenheiros de software e seus gerentes).</p>
+                
+                <p>Enfatiza a <span class="highlight">entrega rápida do software operacional</span> e diminui a importância dos artefatos intermediários (nem sempre um bom negócio); aceita o cliente como parte da equipe de desenvolvimento e trabalha para eliminar a atitude de "nós e eles" que continua a impregnar muitos projetos de software; reconhece que o planejamento em um mundo incerto tem seus limites e que o plano (roteiro) de projeto deve ser flexível.</p>
+                
+                <p>A agilidade pode ser aplicada a qualquer processo de software. Entretanto, para alcançá-la, é essencial que o processo seja projetado de modo que a equipe possa <span class="highlight">adaptar e alinhar</span> (racionalizar) tarefas; possa conduzir o planejamento, compreendendo a fluidez de uma metodologia de desenvolvimento ágil; possa eliminar tudo, exceto os artefatos essenciais, conservando-os enxutos; e enfatize a <span class="highlight">estratégia de entrega incremental</span>, conseguindo entregar ao cliente, o mais rapidamente possível, o software operacional para o tipo de produto e ambiente operacional.</p>
+            </div>
+            
+            <div class="observation-box">
+                <div class="observation-icon">⚠️</div>
+                <div class="observation-content">
+                    <h3>Atenção Importante</h3>
+                    <p>Não cometa o erro de supor que a agilidade lhe dará licença para abreviar soluções. Processo é um requisito, e disciplina é essencial.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

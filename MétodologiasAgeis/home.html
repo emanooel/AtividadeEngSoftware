@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engenharia de Software - Processos Ágeis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated Background Elements */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(97, 218, 251, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(97, 218, 251, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #61dafb;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #61dafb;
+            animation: float 15s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 6s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 8s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 10s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 12s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 14s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 16s; }
+        
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(10vh) scale(1);
+            }
+        }
+        
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .main-title {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff0080, #00ff80, #8000ff, #ff8000);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientFlow 8s ease-in-out infinite;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+        }
+        
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #61dafb;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(97, 218, 251, 0.3);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        
+        /* Navigation Menu */
+        .nav-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .nav-item {
+            background: rgba(40, 44, 52, 0.8);
+            backdrop-filter: blur(15px);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #ff0080, #00ff80, #8000ff, #ff8000);
+            background-size: 200% 200%;
+            z-index: -1;
+            animation: borderGlow 8s ease-in-out infinite;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .nav-item:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 15px 30px rgba(97, 218, 251, 0.2);
+        }
+        
+        .nav-item:hover::before {
+            animation-duration: 4s;
+        }
+        
+        .nav-item:hover .nav-icon {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 15px currentColor);
+        }
+        
+        .nav-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+        
+        .nav-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #61dafb 0%, #21d4fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-description {
+            font-size: 1rem;
+            color: #ffffff;
+            text-align: center;
+            line-height: 1.5;
+        }
+        
+        .progress-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(97, 218, 251, 0.1);
+            border: 2px solid #61dafb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #61dafb;
+            animation: progressPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes progressPulse {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(97, 218, 251, 0.4);
+            }
+            50% { 
+                box-shadow: 0 0 0 8px rgba(97, 218, 251, 0);
+            }
+        }
+        
+        /* Level Colors */
+        .level-1 { --level-color: #00ff80; }
+        .level-2 { --level-color: #61dafb; }
+        .level-3 { --level-color: #ff0080; }
+        .level-4 { --level-color: #8000ff; }
+        .level-5 { --level-color: #ff8000; }
+        
+        .level-1 .nav-icon { color: var(--level-color); }
+        .level-2 .nav-icon { color: var(--level-color); }
+        .level-3 .nav-icon { color: var(--level-color); }
+        .level-4 .nav-icon { color: var(--level-color); }
+        .level-5 .nav-icon { color: var(--level-color); }
+        
+        .level-1 .progress-indicator { border-color: var(--level-color); color: var(--level-color); }
+        .level-2 .progress-indicator { border-color: var(--level-color); color: var(--level-color); }
+        .level-3 .progress-indicator { border-color: var(--level-color); color: var(--level-color); }
+        .level-4 .progress-indicator { border-color: var(--level-color); color: var(--level-color); }
+        .level-5 .progress-indicator { border-color: var(--level-color); color: var(--level-color); }
+        
+        /* Power-ups */
+        .power-up {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid #ffc107;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            animation: powerUpBounce 3s ease-in-out infinite;
+        }
+        
+        @keyframes powerUpBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-3px) scale(1.05); }
+        }
+        
+        /* Achievement Badge */
+        .achievement {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #1a1a2e;
+            border-radius: 15px;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            animation: achievementGlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes achievementGlow {
+            0%, 100% { box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
+            50% { box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5); }
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #8892b0;
+            font-size: 0.9rem;
+        }
+        
+        .footer-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #61dafb;
+            text-shadow: 0 0 8px rgba(97, 218, 251, 0.3);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+                letter-spacing: 2px;
+            }
+            
+            .nav-menu {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .nav-item {
+                padding: 25px;
+            }
+            
+            .nav-title {
+                font-size: 1.5rem;
+            }
+            
+            .footer-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+            
+            .nav-item {
+                padding: 20px;
+            }
+            
+            .nav-icon {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title" style="text-transform: uppercase;">Engenharia de Software</h1>
+            <p class="subtitle">Processos Ágeis</p>
+        </header>
+        
+        <nav class="nav-menu">
+            <a href="page1_inicio.html" class="nav-item level-1">
+                <div class="achievement">START</div>
+                <div class="progress-indicator">1</div>
+                <div class="power-up">💡</div>
+                <span class="nav-icon">📋</span>
+                <h3 class="nav-title">Conceitos chaves</h3>
+                <p class="nav-description">Começe por aqui</p>
+            </a>
+
+            <a href="page_2.html" class="nav-item level-1">
+                <div class="achievement">START</div>
+                <div class="progress-indicator">2</div>
+                <div class="power-up">💡</div>
+                <span class="nav-icon">📋</span>
+                <h3 class="nav-title">Metodologia Ágil</h3>
+                <p class="nav-description">Depois de ter lido os conceitos chaves sua leitura continua aqui !</p>
+            </a>
+
+            <a href="what_is_agility_page.html" class="nav-item level-1">
+                <div class="achievement">START</div>
+                <div class="progress-indicator">3</div>
+                <div class="power-up">💡</div>
+                <span class="nav-icon">📋</span>
+                <h3 class="nav-title">O que é agilidade</h3>
+                <p class="nav-description">Depois de ter lido os conceitos chaves sua leitura continua aqui !</p>
+            </a>
+
+            <a href="what_is_agile_process_page.html" class="nav-item level-1">
+                <div class="achievement">NEW</div>
+                <div class="progress-indicator">4</div>
+                <div class="power-up">💡</div>
+                <span class="nav-icon">📋</span>
+                <h3 class="nav-title">O que é processo ágil?</h3>
+                <p class="nav-description">Descubra os fundamentos e preceitos-chave dos processos ágeis</p>
+            </a>
+            
+            <a href="agility_principles_page.html" class="nav-item level-2">
+                <div class="progress-indicator">5</div>
+                <div class="power-up">⚡</div>
+                <span class="nav-icon">🎯</span>
+                <h3 class="nav-title">Princípios da Agilidade</h3>
+                <p class="nav-description">Explore os 12 princípios fundamentais do manifesto ágil</p>
+            </a>
+
+            <a href="mudar_figura_agility_cost_changes_page.html" class="nav-item level-2">
+                <div class="progress-indicator">6</div>
+                <div class="power-up">⚡</div>
+                <span class="nav-icon">🎯</span>
+                <h3 class="nav-title">Agilidade e os custos das mudanças</h3>
+                <p class="nav-description">Mudanças tem custos</p>
+            </a>
+            
+            <a href="extreme_programming_page.html" class="nav-item level-3">
+                <div class="progress-indicator">7</div>
+                <div class="power-up">🔥</div>
+                <span class="nav-icon">⚡</span>
+                <h3 class="nav-title">Extreme Programming (XP)</h3>
+                <p class="nav-description">Mergulhe na metodologia ágil mais extrema e revolucionária</p>
+            </a>
+            
+            <a href="agile_models_battle_page.html" class="nav-item level-4">
+                <div class="progress-indicator">8</div>
+                <div class="power-up">⚔️</div>
+                <span class="nav-icon">🏆</span>
+                <h3 class="nav-title">A Guerra dos Métodos Ágeis</h3>
+                <p class="nav-description">Descubra Scrum, Modelagem Ágil e outros competidores</p>
+            </a>
+            
+            <a href="boss_level_page.html" class="nav-item level-5">
+                <div class="achievement">BOSS</div>
+                <div class="progress-indicator">8</div>
+                <div class="power-up">👑</div>
+                <span class="nav-icon">🚀</span>
+                <h3 class="nav-title">Projeto Final</h3>
+                <p class="nav-description">Aplique todo conhecimento em um desafio épico</p>
+            </a>
+
+            <a href="students_showcase_page.html" class="nav-item level-5">
+                <div class="achievement">BOSS</div>
+                <div class="progress-indicator">8</div>
+                <div class="power-up">👑</div>
+                <span class="nav-icon">💻</span>
+                <h3 class="nav-title">Lendarios</h3>
+                <p class="nav-description">Quando eu der mergue nas alterações de voces esta seção irá atualizar</p>
+            </a>
+        </nav>
+        
+        <footer class="footer">
+            <div class="footer-stats">
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Levels</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Principles</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Possibilities</div>
+                </div>
+            </div>
+            <p>🎮 Ready Player One? Choose your path to agile mastery!</p>
+        </footer>
+    </div>
+</body>
+</html>

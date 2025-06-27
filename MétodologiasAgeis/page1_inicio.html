@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manifesto Ágil - Conceitos-chave</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar {
+            float: left;
+            width: 200px;
+            margin-right: 30px;
+            background-color: #e8f0fe;
+            padding: 20px;
+            border-radius: 5px;
+            border-top: 4px solid #4285f4;
+        }
+        
+        .sidebar h3 {
+            margin-top: 0;
+            color: #4285f4;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        .sidebar li {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .page-number {
+            color: #666;
+            font-weight: normal;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            text-align: justify;
+        }
+        
+        .main-content p {
+            margin-bottom: 15px;
+        }
+        
+        .manifesto-values {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+        
+        .manifesto-values p {
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        
+        .emphasis {
+            font-weight: bold;
+        }
+        
+        .final-note {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .panorama-section {
+            clear: both;
+            margin-top: 40px;
+            background-color: #7986cb;
+            color: black;
+            border-radius: 15px 15px 0 0;
+            overflow: hidden;
+        }
+        
+        .panorama-header {
+            background-color: #5c6bc0;
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .panorama-header h2 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 1px;
+        }
+        
+        .panorama-content {
+            padding: 20px;
+            background-color: #9fa8da;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .panorama-content p {
+            margin: 0;
+            text-align: justify;
+        }
+        
+        .panorama-content strong {
+            color: #1a237e;
+            font-weight: bold;
+        }
+        
+        .question {
+            color: #303f9f !important;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                float: none;
+                width: 100%;
+                margin-bottom: 20px;
+                margin-right: 0;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .panorama-header {
+                padding: 10px 20px;
+            }
+            
+            .panorama-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="home.html" style="background-color: #1a237e; color: whitesmoke; font-weight: bold; padding: 8px 16px;">Voltar</a>
+        <div class="sidebar">
+            <h3>Conceitos-chave</h3>
+            <ul>
+                <li>agilidade <span class="page-number">68</span></li>
+                <li>Agile Alliance <span class="page-number">70</span></li>
+                <li>custo da alteração <span class="page-number">68</span></li>
+                <li>Método de Desenvolvimento de Sistemas Dinâmicos (DSDM, Dynamic Systems Development Method) <span class="page-number">79</span></li>
+                <li>princípios da agilidade <span class="page-number">70</span></li>
+                <li>processo ágil <span class="page-number">69</span></li>
+                <li>Processo Unificado Ágil <span class="page-number">82</span></li>
+                <li>teste de aceitação <span class="page-number">75</span></li>
+            </ul>
+        </div>
+        
+        <div class="main-content">
+            <p>Em 2001, Kent Beck e outros 16 renomados desenvolvedores, autores e consultores da área de software [Bec01] (batizados de "<span class="emphasis">Agile Alliance</span>" – "<span class="emphasis">Aliança dos Ágeis</span>") assinaram o "<span class="emphasis">Manifesto para o Desenvolvimento Ágil de Software</span>" ("<span class="emphasis">Manifesto for Agile Software Development</span>"). Ele declarava:</p>
+            
+            <p>Ao desenvolver e ajudar outros a desenvolver software, desvendamos formas melhores de desenvolvimento. Por meio deste trabalho passamos a valorizar:</p>
+            
+            <div class="manifesto-values">
+                <p><em>Indivíduos e interações</em> acima de processos e ferramentas</p>
+                
+                <p><em>Software operacional</em> acima de documentação completa</p>
+                
+                <p><em>Colaboração dos clientes</em> acima de negociação contratual</p>
+                
+                <p><em>Respostas a mudanças</em> acima de seguir um plano</p>
+            </div>
+            
+            <p class="final-note">Ou seja, embora haja valor nos itens à direita, valorizaremos os da esquerda mais ainda.</p>
+        </div>
+        
+        <div class="panorama-section">
+            <div class="panorama-header">
+                <h2>PANORAMA</h2>
+            </div>
+            
+            <div class="panorama-content">
+                <p><strong>O que é?</strong> A engenharia de software ágil combina filosofia com um conjunto de princípios de desenvolvimento. A filosofia defende a satisfação do cliente e a entrega incremental antecipada; equipes de projeto pequenas e altamente motivadas; métodos informais; artefatos de engenharia de software mínimos; e, acima de tudo, simplicidade no desenvolvimento geral. Os princípios de desenvolvimento priorizam a entrega mais do que a análise e o projeto (embora essas atividades não sejam desencorajadas); também priorizam a comunicação ativa e contínua entre desenvolvedores e clientes.</p>
+                
+                <p><strong class="question">Quem realiza?</strong> Os engenheiros de software e outros envolvidos no projeto (gerentes, clientes, usuários) trabalham conjuntamente em uma equipe ágil – uma equipe que se auto-organiza e que controla seu próprio destino. Uma equipe ágil acelera a comunicação e a colaboração entre todos os participantes (que estão ao seu serviço).</p>
+                
+                <p><strong class="question">Por que é importante?</strong> O ambiente moderno dos sistemas e dos produtos da área é acelerado e está em constante mudança. A engenharia de software ágil constitui uma alternativa razoável para a engenharia convencional voltada para certas classes de software e para certos tipos de projetos. Ela tem se mostrado capaz de entregar sistemas corretos rapidamente.</p>
+                
+                <p><strong class="question">Quais são as etapas envolvidas?</strong> O desenvolvimento ágil poderia ser mais bem denominado "engenharia de software flexível". As atividades metodológicas básicas – comunicação, planejamento, modelagem, construção e entrega – permanecem. Entretanto, elas se transformam em um conjunto de tarefas mínimas que impulsiona a equipe para o desenvolvimento e para a entrega (pode-se levantar a questão de que isso é feito em detrimento da análise do problema e do projeto de soluções).</p>
+                
+                <p><strong class="question">Qual é o artefato?</strong> Tanto o cliente quanto o engenheiro têm o mesmo parecer: o único artefato realmente importante consiste em um "incremento de software" operacional que seja entregue, adequadamente, na data combinada.</p>
+                
+                <p><strong class="question">Como garantir que o trabalho foi realizado corretamente?</strong> Se a equipe ágil concorda que o processo funciona e essa equipe produz incrementos de software passíveis de entrega e que satisfaçam o cliente, então, o trabalho está correto.</p>
+            </div>
+        </div>
+
+        
+    </div>
+</body>
+</html>

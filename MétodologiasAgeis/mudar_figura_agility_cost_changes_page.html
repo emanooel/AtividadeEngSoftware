@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agilidade e o custo das mudanças</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            background: rgba(40, 44, 52, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(97, 218, 251, 0.1);
+            padding: 50px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(97, 218, 251, 0.03) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            50% {
+                transform: translate(-20px, -20px) rotate(180deg);
+            }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #61dafb 0%, #21d4fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -1px;
+        }
+
+        .text-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccd6f6;
+            text-align: justify;
+            hyphens: auto;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        .text-content p {
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(100, 255, 218, 0.15) 0%, rgba(129, 236, 236, 0.15) 100%);
+            color: #64ffda;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .figure-container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(97, 218, 251, 0.3);
+        }
+
+        .figure-title {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .axis {
+            stroke: #2c3e50;
+            stroke-width: 2;
+        }
+
+        .axis-label {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 14px;
+            fill: #2c3e50;
+            font-weight: 500;
+        }
+
+        .conventional-curve {
+            fill: none;
+            stroke: #2c3e50;
+            stroke-width: 3;
+            stroke-dasharray: none;
+        }
+
+        .agile-curve {
+            fill: none;
+            stroke: #4a90e2;
+            stroke-width: 3;
+        }
+
+        .ideal-line {
+            fill: none;
+            stroke: #4a90e2;
+            stroke-width: 2;
+            stroke-dasharray: 8, 4;
+        }
+
+        .curve-label {
+            font-family: 'SF Pro Display', sans-serif;
+            font-size: 12px;
+            fill: #2c3e50;
+            font-weight: 500;
+        }
+
+        .arrow {
+            stroke: #2c3e50;
+            stroke-width: 1.5;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .reference {
+            color: #7f8c8d;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #61dafb, #64ffda);
+            transform-origin: left;
+            animation: progress 4s ease-out;
+        }
+
+        @keyframes progress {
+            from {
+                transform: scaleX(0);
+            }
+
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 25px;
+                margin: 10px;
+            }
+
+            .title {
+                font-size: 2.2rem;
+            }
+
+            .text-content {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+
+            .chart-container {
+                height: 350px;
+            }
+
+            .figure-container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 20px;
+            }
+
+            .title {
+                font-size: 1.9rem;
+            }
+
+            .text-content {
+                font-size: 0.95rem;
+            }
+
+            .text-content p {
+                text-indent: 1.5em;
+            }
+
+            .chart-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reading-progress"></div>
+
+    <div class="container">
+        <div class="content">
+            <a href="home.html"
+                style="background-color: #1a237e; color: whitesmoke; font-weight: bold; padding: 8px 16px;">Voltar</a>
+            <h1 class="title">Agilidade e o custo das mudanças</h1>
+
+            <div class="text-content">
+                <p>O pensamento convencional em desenvolvimento de software (baseado em décadas de experiência) é que os
+                    <span class="highlight">custos de mudanças aumentam de forma não linear</span> conforme o projeto
+                    avança (Figura 5.1, curva em preto contínua). É relativamente fácil acomodar uma mudança quando a
+                    equipe de software está reunindo requisitos (no início de um projeto). Talvez seja necessário
+                    alterar um detalhamento do uso, ampliar uma lista de funções ou editar uma especificação por
+                    escrito. Os custos desse trabalho são mínimos, e o tempo demandado não afetará negativamente o
+                    resultado do projeto.</p>
+
+                <p>Mas, se adiantarmos alguns meses, o que aconteceria? A equipe está em meio aos <span
+                        class="highlight">testes de validação</span> (que ocorrem relativamente no final do projeto), e
+                    um importante envolvido está solicitando uma mudança funcional grande. A mudança exige uma alteração
+                    no projeto da arquitetura do software, projeto e desenvolvimento de três novos componentes,
+                    modificações em outros cinco componentes, projeto de novos testes e assim por diante. Os custos
+                    crescem rapidamente, e o tempo e os custos necessários para assegurar que a mudança seja feita sem
+                    efeitos colaterais inesperados não serão insignificantes.</p>
+            </div>
+
+            <div class="figure-container">
+                <div class="figure-title">Figura 5.1 - Custo das mudanças vs. Progresso do cronograma</div>
+                <div class="chart-container">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+                        alt="Gráfico mostrando o custo de alterações usando processos convencionais vs ágeis ao longo do progresso do cronograma de desenvolvimento"
+                        style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
+                </div>
+
+                <a target="_blank"
+                    style="background-color: #1a237e; color: whitesmoke; font-weight: bold; padding: 8px 16px;"
+                    href="Pressman - Engenharia de Software-Uma Abordagem Profissional - 8a.pdf">Veja o capitulo 5 deste
+                    livro, e encontre a figura 5.1</a>
+
+            </div>
+
+            <div class="text-content">
+                <p>Os proponentes da agilidade (por exemplo, <span class="reference">[Bec00], [Amb04]</span>) argumentam
+                    que um <span class="highlight">processo ágil bem elaborado "achata" o custo da curva de
+                        mudança</span> (Figura 5.1, curva em linha azul), permitindo que uma equipe de software assimile
+                    as alterações, realizadas posteriormente em um projeto de software, sem um impacto significativo nos
+                    custos ou no tempo.</p>
+
+                <p>Já foi mencionado que o processo ágil envolve <span class="highlight">entregas incrementais</span>. O
+                    custo das mudanças é atenuado quando a entrega incremental é associada a outras práticas ágeis, como
+                    <span class="highlight">testes contínuos de unidades</span> e <span class="highlight">programação em
+                        pares</span> (discutida mais adiante neste capítulo). Há evidências <span
+                        class="reference">[Coc01a]</span> que sugerem ser possível alcançar redução significativa nos
+                    custos de alterações, embora haja um debate contínuo sobre qual o nível em que a curva de custos se
+                    torna "achatada".</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

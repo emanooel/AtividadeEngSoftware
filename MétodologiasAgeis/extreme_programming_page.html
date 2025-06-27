@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extreme Programming - XP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .neon-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .neon-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #ff0080 20%, 
+                #00ff80 40%, 
+                #8000ff 60%, 
+                #ff8000 80%, 
+                transparent 100%);
+            box-shadow: 0 0 10px currentColor;
+            animation: neonFlow 8s ease-in-out infinite;
+        }
+        
+        .neon-line:nth-child(1) {
+            top: 15%;
+            width: 60%;
+            left: -30%;
+            animation-delay: 0s;
+        }
+        
+        .neon-line:nth-child(2) {
+            top: 45%;
+            width: 80%;
+            right: -40%;
+            animation-delay: 2s;
+        }
+        
+        .neon-line:nth-child(3) {
+            top: 75%;
+            width: 70%;
+            left: -35%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes neonFlow {
+            0% { 
+                transform: translateX(0) scaleX(0);
+                opacity: 0;
+            }
+            20% {
+                transform: translateX(20vw) scaleX(1);
+                opacity: 1;
+            }
+            80% {
+                transform: translateX(80vw) scaleX(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) scaleX(0);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 1000px;
+            background: rgba(40, 44, 52, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                        0 0 20px rgba(97, 218, 251, 0.1);
+            padding: 50px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(97, 218, 251, 0.03) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, -20px) rotate(180deg); }
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .title {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #ff0080 0%, #00ff80 50%, #8000ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-shadow: 0 0 30px rgba(255, 0, 128, 0.5);
+        }
+        
+        .subtitle-xp {
+            font-size: 1.2rem;
+            color: #ff0080;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 0, 128, 0.3);
+        }
+        
+        .text-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccd6f6;
+            text-align: justify;
+            hyphens: auto;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+        
+        .text-content p {
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+        
+        .text-content p:first-child {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #8892b0;
+            text-indent: 0;
+            margin-bottom: 30px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 0, 128, 0.15) 0%, rgba(0, 255, 128, 0.15) 100%);
+            color: #ff0080;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 0, 128, 0.2);
+            text-shadow: 0 0 5px rgba(255, 0, 128, 0.3);
+        }
+        
+        .reference {
+            color: #8892b0;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+        
+        .section-divider {
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #ff0080 25%, 
+                #00ff80 50%, 
+                #8000ff 75%, 
+                transparent 100%);
+            margin: 40px 0;
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 128, 0.5);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(255, 0, 128, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(255, 0, 128, 0.8);
+            }
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #00ff80 0%, #ff0080 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(0, 255, 128, 0.5);
+        }
+        
+        .xp-activities {
+            background: rgba(30, 40, 60, 0.6);
+            border: 1px solid rgba(255, 0, 128, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 0, 128, 0.1);
+        }
+        
+        .activity-section {
+            margin-bottom: 30px;
+        }
+        
+        .activity-title {
+            color: #00ff80;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 255, 128, 0.5);
+        }
+        
+        .activity-content {
+            color: #ccd6f6;
+            line-height: 1.7;
+            text-align: justify;
+        }
+        
+        .extreme-alert {
+            background: linear-gradient(135deg, rgba(255, 0, 128, 0.1) 0%, rgba(128, 0, 255, 0.1) 100%);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff0080, #8000ff, #00ff80) 1;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .extreme-alert::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 0, 128, 0.1), transparent);
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .extreme-alert h3 {
+            color: #ff0080;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
+        }
+        
+        .extreme-alert p {
+            color: #ccd6f6;
+            position: relative;
+            z-index: 1;
+            margin: 0;
+        }
+        
+        .technique-highlight {
+            background: rgba(0, 255, 128, 0.05);
+            border: 1px solid rgba(0, 255, 128, 0.2);
+            border-left: 4px solid #00ff80;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(5px);
+        }
+        
+        .technique-highlight h4 {
+            color: #00ff80;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px rgba(0, 255, 128, 0.3);
+        }
+        
+        .refactoring-section {
+            background: rgba(128, 0, 255, 0.05);
+            border: 1px solid rgba(128, 0, 255, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(5px);
+        }
+        
+        .refactoring-section h4 {
+            color: #8000ff;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(128, 0, 255, 0.5);
+        }
+        
+        .fowler-quote {
+            background: rgba(255, 0, 128, 0.05);
+            border: 1px solid rgba(255, 0, 128, 0.2);
+            border-left: 4px solid #ff0080;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #e0e6ff;
+            position: relative;
+        }
+        
+        .fowler-quote::before {
+            content: '"';
+            font-size: 3rem;
+            color: rgba(255, 0, 128, 0.3);
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-family: serif;
+        }
+        
+        .key-insight {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .coding-flow {
+            background: rgba(0, 255, 128, 0.05);
+            border: 1px solid rgba(0, 255, 128, 0.2);
+            border-left: 4px solid #00ff80;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(5px);
+        }
+        
+        .coding-flow h4 {
+            color: #00ff80;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px rgba(0, 255, 128, 0.3);
+        }
+        
+        .pair-programming-section {
+            background: rgba(255, 0, 128, 0.05);
+            border: 1px solid rgba(255, 0, 128, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            backdrop-filter: blur(5px);
+        }
+        
+        .pair-programming-section h4 {
+            color: #ff0080;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
+        }
+        
+        .pair-programming-definition {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .pair-programming-definition p {
+            color: #ffc107;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .benefit-item {
+            background: rgba(0, 255, 128, 0.03);
+            border: 1px solid rgba(0, 255, 128, 0.15);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 255, 128, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 255, 128, 0.1);
+        }
+        
+        .benefit-icon {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .benefit-item p {
+            color: #ccd6f6;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .roles-explanation {
+            background: rgba(128, 0, 255, 0.05);
+            border: 1px solid rgba(128, 0, 255, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .roles-explanation h5 {
+            color: #8000ff;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px rgba(128, 0, 255, 0.3);
+        }
+        
+        .integration-section {
+            background: rgba(255, 152, 0, 0.05);
+            border: 1px solid rgba(255, 152, 0, 0.2);
+            border-left: 4px solid #ff9800;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .integration-section h4 {
+            color: #ff9800;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+        }
+        
+        .testing-automation {
+            background: rgba(0, 255, 128, 0.05);
+            border: 1px solid rgba(0, 255, 128, 0.2);
+            border-left: 4px solid #00ff80;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .testing-automation h4 {
+            color: #00ff80;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px rgba(0, 255, 128, 0.3);
+        }
+        
+        .continuous-testing {
+            background: rgba(255, 0, 128, 0.05);
+            border: 1px solid rgba(255, 0, 128, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .continuous-testing h4 {
+            color: #ff0080;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
+        }
+        
+        .wells-quote {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .wells-quote p {
+            color: #ffd700;
+            margin: 0;
+            font-style: italic;
+        }
+        
+        .acceptance-testing {
+            background: rgba(128, 0, 255, 0.05);
+            border: 1px solid rgba(128, 0, 255, 0.2);
+            border-left: 4px solid #8000ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .pulse-quote, .pulse-highlight {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 152, 0, 0.15) 100%);
+            border: 2px solid rgba(255, 193, 7, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+            animation: pulseBorder 2s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+        }
+        
+        @keyframes pulseBorder {
+            0% {
+                border-color: rgba(255, 193, 7, 0.4);
+                box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+                transform: scale(1);
+            }
+            50% {
+                border-color: rgba(255, 193, 7, 0.8);
+                box-shadow: 0 0 30px rgba(255, 193, 7, 0.4);
+                transform: scale(1.02);
+            }
+            100% {
+                border-color: rgba(255, 193, 7, 0.4);
+                box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+                transform: scale(1);
+            }
+        }
+        
+        .wells-quote-pulse p {
+            color: #ffd700;
+            margin: 0;
+            font-style: italic;
+            font-weight: 500;
+        }
+        
+        .kiss-principle {
+            background: linear-gradient(135deg, rgba(255, 0, 128, 0.15) 0%, rgba(128, 0, 255, 0.15) 100%);
+            border-color: rgba(255, 0, 128, 0.4);
+        }
+        
+        .kiss-principle p {
+            color: #ff0080;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .test-first-concept {
+            background: linear-gradient(135deg, rgba(0, 255, 128, 0.15) 0%, rgba(0, 255, 255, 0.15) 100%);
+            border-color: rgba(0, 255, 128, 0.4);
+        }
+        
+        .test-first-concept p {
+            color: #00ff80;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .continuous-integration-key {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 87, 34, 0.15) 100%);
+            border-color: rgba(255, 152, 0, 0.4);
+        }
+        
+        .continuous-integration-key p {
+            color: #ff9800;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        @keyframes progress {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 25px;
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .text-content {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            
+            .xp-activities {
+                padding: 20px;
+            }
+            
+            .neon-line {
+                height: 1px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            .title {
+                font-size: 1.9rem;
+            }
+            
+            .text-content {
+                font-size: 0.95rem;
+            }
+            
+            .text-content p {
+                text-indent: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="neon-lines">
+        <div class="neon-line"></div>
+        <div class="neon-line"></div>
+        <div class="neon-line"></div>
+    </div>
+    
+    <div class="reading-progress"></div>
+    
+    <div class="container">
+        <div class="content">
+            <a href="home.html" style="background-color: #1a237e; color: whitesmoke; font-weight: bold; padding: 8px 16px;">Voltar</a>
+            <h1 class="title">Extreme Programming</h1>
+            <div class="subtitle-xp">XP (Programação Extrema)</div>
+            
+            <div class="extreme-alert">
+                <h3>🚀 METODOLOGIA ÁGIL EXTREMA</h3>
+                <p>Prepare-se para uma abordagem revolucionária de desenvolvimento!</p>
+            </div>
+            
+            <div class="text-content">
+                <p>Para ilustrar um <span class="highlight">processo ágil</span> de forma um pouco mais detalhada, vamos dar uma visão geral da <span class="highlight">Extreme Programming - XP (Programação Extrema)</span>, a abordagem mais amplamente utilizada para desenvolvimento de software ágil. Embora os primeiros trabalhos sobre os conceitos e métodos associados à XP tenham ocorrido no final dos anos 1980, o trabalho seminal sobre o tema foi escrito por <span class="highlight">Kent Beck</span> <span class="reference">[Bec04a]</span>. Uma variante da XP, denominada <span class="highlight">Industrial XP [IXPJ]</span>, refina a XP para aplicar processo ágil especificamente em grandes organizações <span class="reference">[Ker05]</span>.</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 class="section-title">O processo XP</h2>
+            
+            <div class="text-content">
+                <p>A <span class="highlight">Extreme Programming (Programação Extrema)</span> emprega uma metodologia orientada a objetos (Apêndice 2) como seu paradigma de desenvolvimento e envolve um conjunto de regras e práticas constantes no contexto de <span class="highlight">quatro atividades metodológicas</span>: planejamento, projeto, codificação e testes. A Figura 5.2 ilustra o processo XP e destaca alguns conceitos e tarefas-chave associados a cada uma das atividades metodológicas. As atividades-chave da XP são sintetizadas nos parágrafos a seguir.</p>
+            </div>
+            
+            <div class="xp-activities">
+                <div class="activity-section">
+                    <div class="activity-title">📋 Planejamento</div>
+                    <div class="activity-content">
+                        <p>A atividade de planejamento (também chamada de <span class="highlight">"o jogo do planejamento"</span>) se inicia com <span class="highlight">ouvir</span> - uma atividade de levantamento de requisitos que capacita os membros técnicos da equipe XP a entender o ambiente de negócio do software e permite obter uma percepção ampla sobre os resultados solicitados, fatores principais e funcionalidade.</p>
+                        
+                        <p>A atividade de ouvir conduz à criação de um conjunto de <span class="highlight">"histórias"</span> (também denominadas <span class="highlight">histórias de usuários</span>) que descreve o resultado, as características e a funcionalidade solicitados para o software a ser construído. Cada história (similar aos casos de uso descritos no Capítulo 8) é escrita pelo cliente e é colocada em uma ficha. O cliente atribui um valor (uma prioridade) à história baseando-se no valor de negócio global do recurso ou função.</p>
+                        
+                        <p>Os membros da equipe XP avaliam, então, cada história e atribuem um <span class="highlight">custo - medido em semanas de desenvolvimento</span> - a ela. Se a história exigir, por estimativa, mais do que três semanas de desenvolvimento, é solicitado ao cliente que ele a divida em histórias menores, e a atribuição de valor e custo ocorre novamente.</p>
+                        
+                        <p>É importante notar que podem ser escritas novas histórias a qualquer momento. Clientes e desenvolvedores trabalham juntos para decidir como agrupar histórias para a versão seguinte (o próximo incremento de software) a ser desenvolvida pela equipe XP.</p>
+                        
+                        <p>Depois de a primeira versão do projeto (também denominada incremento de software) ter sido entregue, a equipe XP calcula a <span class="highlight">velocidade do projeto</span>. De forma simples, a velocidade do projeto é o número de histórias de clientes implementadas durante a primeira versão.</p>
+                    </div>
+                </div>
+                
+                <div class="activity-section">
+                    <div class="activity-title">🎨 Projeto</div>
+                    <div class="activity-content">
+                        <p>O projeto XP segue rigorosamente este princípio fundamental. Como acréscimo, o projeto oferece um guia de implementação para uma história à medida que é escrita - nada mais, nada menos. O projeto de funcionalidade extra (pelo fato de o desenvolvedor supor que ela será necessária no futuro) é desestimulado.</p>
+                        
+                        <div class="pulse-highlight kiss-principle">
+                            <p>🎯 <strong>Princípio KISS:</strong> <em>"Keep it simple, stupid!"</em> - Sempre prefira um projeto simples a uma representação mais complexa. Este é o coração da filosofia XP!</p>
+                        </div>
+                        
+                        <div class="technique-highlight">
+                            <h4>🃏 Cartões CRC</h4>
+                            <p>A XP estimula o uso de <span class="highlight">cartões CRC</span> (Capítulo 10) como um mecanismo eficaz para pensar o software em um contexto orientado a objetos. Os cartões CRC <span class="highlight">(classe-responsabilidade-colaborador)</span> identificam e organizam as classes orientadas a objetos relevantes para o incremento de software corrente. A equipe XP conduz o exercício de projeto usando um processo semelhante ao descrito no Capítulo 10. Os cartões CRC são o único artefato de projeto produzido como parte do processo XP.</p>
+                        </div>
+                        
+                        <div class="technique-highlight">
+                            <h4>🔬 Soluções Pontuais</h4>
+                            <p>Se for encontrado um <span class="highlight">problema de projeto difícil</span>, como parte do projeto de uma história, a XP recomenda a criação imediata de um protótipo operacional dessa parte do projeto. Denominada <span class="highlight">solução pontual</span>, o protótipo do projeto é implementado e avaliado. O objetivo é reduzir o risco para quando a verdadeira implementação iniciar e validar as estimativas originais para a história contendo o problema de projeto.</p>
+                        </div>
+                        
+                        <div class="refactoring-section">
+                            <h4>🔄 Refatoração - Conceito Central</h4>
+                            <p>A XP estimula a <span class="highlight">refatoração</span> - uma técnica de construção que também é uma técnica de projeto. Fowler <span class="reference">[Fow00]</span> descreve a refatoração da seguinte maneira:</p>
+                            
+                            <blockquote class="fowler-quote">
+                                "Refatoração é o processo de alterar um sistema de software de modo que o comportamento externo do código não se altere, mas a estrutura interna se aprimore. É uma forma disciplinada de organizar código [e modificar/simplificar o projeto interno] que minimiza as chances de introdução de bugs. Em resumo, ao se refatorar, se está aperfeiçoando o projeto de codificação depois de este ter sido feito."
+                            </blockquote>
+                            
+                            <p>Como o projeto XP praticamente não usa notação e produz poucos artefatos, quando produz, além dos cartões CRC e soluções pontuais, o projeto é visto como algo <span class="highlight">transitório</span> que pode e deve ser continuamente modificado conforme a construção prossegue.</p>
+                            
+                            <p>O objetivo da refatoração é controlar essas modificações, sugerindo pequenas mudanças de projeto "capazes de melhorá-lo radicalmente" <span class="reference">[Fow00]</span>. Deve-se observar, no entanto, que o esforço necessário para a refatoração pode aumentar significativamente à medida que o tamanho de uma aplicação cresça.</p>
+                            
+                            <div class="key-insight">
+                                <p>💡 <strong>Aspecto central na XP:</strong> a elaboração do projeto ocorre tanto <span class="highlight">antes quanto depois</span> de se ter iniciado a codificação. Refatoração significa que o "projetar" é realizado continuamente enquanto o sistema estiver em elaboração. Na realidade, a própria atividade de desenvolvimento guiará a equipe XP quanto ao aprimoramento do projeto.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity-section">
+                    <div class="activity-title">💻 Codificação</div>
+                    <div class="activity-content">
+                        <p>Depois de desenvolvidas as histórias, e de o trabalho preliminar de elaboração do projeto ter sido feito, a equipe não passa para a codificação, mas sim desenvolve uma série de <span class="highlight">testes de unidades</span> que exercitarão cada uma das histórias a ser incluída na versão corrente (incremento de software).</p>
+                        
+                        <div class="pulse-highlight test-first-concept">
+                            <p>⚡ <strong>Conceito Test-First:</strong> <em>Escreva o teste ANTES do código!</em> Isso garante que você só implementa o que é necessário e recebe feedback instantâneo.</p>
+                        </div>
+                        
+                        <div class="coding-flow">
+                            <h4>🔄 Fluxo Test-First</h4>
+                            <p>Uma vez criado o <span class="highlight">teste de unidades</span>, o desenvolvedor poderá se concentrar melhor no que deve ser implementado para ser aprovado no teste. Nada estranho é adicionado <span class="highlight">(KISS)</span>. Estando o código completo, ele pode ser testado em unidade imediatamente e, dessa forma, fornecer feedback para os desenvolvedores instantaneamente.</p>
+                        </div>
+                        
+                        <div class="pair-programming-section">
+                            <h4>👥 Programação em Pares</h4>
+                            <div class="pair-programming-definition">
+                                <p><strong>O que é programação em pares?</strong></p>
+                            </div>
+                            
+                            <p>Um conceito-chave na atividade de codificação (e um dos mais discutidos aspectos da XP) é a <span class="highlight">programação em pares</span>. A XP recomenda que <span class="highlight">duas pessoas trabalhem juntas</span> em uma mesma estação de trabalho para criar código para uma história.</p>
+                            
+                            <div class="benefits-grid">
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">🧠</span>
+                                    <p><strong>Solução de problemas em tempo real</strong><br>(duas cabeças normalmente funcionam melhor do que uma)</p>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">✅</span>
+                                    <p><strong>Garantia da qualidade em tempo real</strong><br>(o código é revisto à medida que é criado)</p>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">🎯</span>
+                                    <p><strong>Manter desenvolvedores concentrados</strong><br>no problema em questão</p>
+                                </div>
+                            </div>
+                            
+                            <div class="roles-explanation">
+                                <h5>🎭 Papéis na Programação em Pares</h5>
+                                <p>Na prática, cada pessoa assume um papel ligeiramente diferente. Por exemplo, uma pessoa poderia pensar nos <span class="highlight">detalhes da codificação</span> de determinada parte do projeto, enquanto outra assegura que <span class="highlight">padrões de codificação</span> (uma parte exigida pela XP) sejam seguidos ou que o código para a história passará no teste de unidades desenvolvido para validação do código em relação à história.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="integration-section">
+                            <h4>🔗 Integração Contínua</h4>
+                            <p>À medida que a dupla de programadores conclui o trabalho, o código que desenvolveram é <span class="highlight">integrado ao trabalho de outros</span>. Em alguns casos, isso é realizado diariamente por uma equipe de integração. Em outros, a dupla de programadores é responsável pela integração.</p>
+                            
+                            <p>A estratégia de <span class="highlight">"integração contínua"</span> ajuda a evitar problemas de compatibilidade e de interface, além de criar um ambiente <span class="highlight">"teste da fumaça"</span> (Capítulo 22) que ajuda a revelar erros precocemente.</p>
+                            
+                            <div class="pulse-highlight continuous-integration-key">
+                                <p>🔄 <strong>Integração Contínua:</strong> <em>Integre código diariamente!</em> Evita problemas de compatibilidade e revela erros precocemente - fundamental para equipes ágeis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity-section">
+                    <div class="activity-title">🧪 Testes</div>
+                    <div class="activity-content">
+                        <div class="testing-automation">
+                            <h4>🤖 Automação de Testes</h4>
+                            <p>Os <span class="highlight">testes de unidades</span> criados devem ser implementados usando-se uma metodologia que os capacite a ser <span class="highlight">automatizados</span> (assim, poderão ser executados fácil e repetidamente). Isso estimula uma estratégia de <span class="highlight">testes de regressão</span> (Capítulo 22) toda vez que o código for modificado (o que é frequente, dada a filosofia de refatoração da XP).</p>
+                        </div>
+                        
+                        <div class="continuous-testing">
+                            <h4>📊 Conjunto de Testes Universal</h4>
+                            <p>Como os testes de unidades individuais são organizados em um <span class="highlight">"conjunto de testes universal"</span> <span class="reference">[Wel99]</span>, os testes de integração e validação do sistema podem ocorrer <span class="highlight">diariamente</span>. Isso dá à equipe XP uma indicação contínua do progresso e também permite lançar alertas logo no início, caso as coisas não andem bem.</p>
+                            
+                        <div class="pulse-quote wells-quote-pulse">
+                            <p>💡 Wells <span class="reference">[Wel99]</span> afirma: <em>"Corrigir pequenos problemas em intervalos de poucas horas leva menos tempo do que corrigir problemas enormes próximo ao prazo de entrega"</em>.</p>
+                        </div>
+                        </div>
+                        
+                        <div class="acceptance-testing">
+                            <h4>✅ Testes de Aceitação</h4>
+                            <p>Os <span class="highlight">testes de aceitação da XP</span>, também denominados <span class="highlight">testes de cliente</span>, são especificados pelo cliente e mantêm o foco nas características e na funcionalidade do sistema total que são visíveis e que podem ser revistas pelo cliente. Os testes de aceitação são obtidos de <span class="highlight">histórias de usuários</span> implementadas como parte de uma versão do software.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

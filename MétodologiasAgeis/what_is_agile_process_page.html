@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O que é processo ágil?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 950px;
+            background: rgba(40, 44, 52, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                        0 0 20px rgba(97, 218, 251, 0.1);
+            padding: 50px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(97, 218, 251, 0.03) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, -20px) rotate(180deg); }
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .title {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #61dafb 0%, #21d4fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -1px;
+        }
+        
+        .text-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccd6f6;
+            text-align: justify;
+            hyphens: auto;
+            font-weight: 400;
+        }
+        
+        .text-content > p {
+            margin-bottom: 20px;
+            text-indent: 2em;
+        }
+        
+        .text-content > p:first-child {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #8892b0;
+            text-indent: 0;
+            margin-bottom: 30px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(100, 255, 218, 0.15) 0%, rgba(129, 236, 236, 0.15) 100%);
+            color: #64ffda;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        
+        .reference {
+            color: #8892b0;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+        
+        .principles-list {
+            background: rgba(30, 40, 60, 0.5);
+            border-left: 4px solid #64ffda;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .principles-list h3 {
+            color: #64ffda;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .principle-item {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .principle-item:before {
+            content: counter(principle-counter);
+            counter-increment: principle-counter;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, #64ffda, #61dafb);
+            color: #0f0f23;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .principles-list {
+            counter-reset: principle-counter;
+        }
+        
+        .principle-item p {
+            color: #a7b6c2;
+            line-height: 1.7;
+            margin: 0;
+            text-align: justify;
+        }
+        
+        .key-question {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 152, 0, 0.1) 100%);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .key-question p {
+            color: #ffc107;
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 0;
+            font-style: italic;
+        }
+        
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #61dafb, #64ffda);
+            transform-origin: left;
+            animation: progress 4s ease-out;
+        }
+        
+        @keyframes progress {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 25px;
+                margin: 10px;
+            }
+            
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .text-content {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            
+            .text-content > p:first-child {
+                font-size: 1.05rem;
+            }
+            
+            .principles-list {
+                padding: 20px;
+            }
+            
+            .principle-item {
+                padding-left: 35px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            .title {
+                font-size: 1.9rem;
+            }
+            
+            .text-content {
+                font-size: 0.95rem;
+            }
+            
+            .text-content > p {
+                text-indent: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reading-progress"></div>
+    
+    <div class="container">
+        <div class="content">
+            <a href="home.html" style="background-color: #1a237e; color: whitesmoke; font-weight: bold; padding: 8px 16px;">Voltar</a>
+            <h1 class="title">O que é processo ágil?</h1>
+            
+            <div class="text-content">
+                <p>Qualquer <span class="highlight">processo ágil de software</span> é caracterizado de uma forma que trate de uma série de preceitos-chave <span class="reference">[Fow02]</span> acerca da maioria dos projetos de software:</p>
+                
+                <div class="principles-list">
+                    <h3>Preceitos-chave do processo ágil</h3>
+                    
+                    <div class="principle-item">
+                        <p>É difícil prever quais <span class="highlight">requisitos de software</span> vão persistir e quais sofrerão alterações. É igualmente difícil prever de que maneira as <span class="highlight">prioridades do cliente</span> sofrerão alterações conforme o projeto avança.</p>
+                    </div>
+                    
+                    <div class="principle-item">
+                        <p>Para muitos tipos de software, o <span class="highlight">projeto e a construção são intercalados</span>. Ou seja, ambas as atividades devem ser realizadas em conjunto para que os modelos de projeto sejam provados conforme são criados. É difícil prever quanto de trabalho de projeto será necessário antes que a sua construção (desenvolvimento) seja implementada para avaliar o projeto.</p>
+                    </div>
+                    
+                    <div class="principle-item">
+                        <p><span class="highlight">Análise, projeto, construção (desenvolvimento) e testes</span> não são tão previsíveis (do ponto de vista de planejamento) quanto gostaríamos que fosse.</p>
+                    </div>
+                </div>
+                
+                <div class="key-question">
+                    <p>Como criar um processo capaz de administrar a imprevisibilidade?</p>
+                </div>
+                
+                <p>A resposta, conforme já observado, está na <span class="highlight">adaptabilidade do processo</span> (alterar rapidamente o projeto e as condições técnicas). Portanto, um processo ágil deve ser <span class="highlight">adaptável</span>.</p>
+                
+                <p>Adaptação contínua sem progressos, entretanto, de pouco adianta. Um processo ágil de software deve adaptar de modo <span class="highlight">incremental</span>. Para conseguir uma adaptação incremental, a equipe ágil precisa de <span class="highlight">feedback do cliente</span> (de modo que as adaptações apropriadas possam ser feitas).</p>
+                
+                <p>Um catalisador eficaz para o feedback do cliente é um <span class="highlight">protótipo operacional</span> ou parte de um sistema operacional. Dessa forma, deve-se instituir uma <span class="highlight">estratégia de desenvolvimento incremental</span>.</p>
+                
+                <p>Os <span class="highlight">incrementos de software</span> (protótipos executáveis ou partes de um sistema operacional) devem ser entregues em <span class="highlight">curtos períodos de tempo</span>, de modo que as adaptações acompanhem o mesmo ritmo das mudanças (imprevisibilidade). Essa <span class="highlight">abordagem iterativa</span> capacita o cliente a avaliar o incremento de software regularmente, fornecer o feedback necessário para a equipe de software e influenciar as adaptações feitas no processo para incluir o feedback adequadamente.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

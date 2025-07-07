@@ -487,7 +487,87 @@ Acredito que a prática ágil mais complexa de se implementar seja a programaç�
             { name: "Eduardo Soares Thomaz", code: "20221SI035", resumo: `` },
             { name: "Emanuelly Bedim Jorge Borges", code: "20231SI016", resumo: `` },
             { name: "Erick Fernandes dos Santos", code: "20231SI038", resumo: `` },
-            { name: "Flávia Gabriel Partelli", code: "20201SI015", resumo: `` },
+            { name: "Flávia Gabriel Partelli", code: "20201SI015", resumo: `1. Fundamentos da Agilidade
+1.1 Conceitos Centrais
+Manifesto Ágil:
+ Ser ágil, segundo o Manifesto para o Desenvolvimento Ágil de Software, é adotar uma abordagem centrada nas pessoas, priorizando indivíduos e interações mais do que processos rígidos e ferramentas. O foco é na entrega contínua de valor ao cliente, com software funcional em mãos desde as etapas iniciais, aceitando mudanças ao longo do caminho. A agilidade é, antes de tudo, uma mentalidade que valoriza a colaboração, a simplicidade e a adaptação constante.
+Mudança como essência:
+ Mudança é a única constante no desenvolvimento de software. Tecnologias evoluem, necessidades dos usuários mudam e os objetivos do negócio podem ser reformulados. A agilidade incorpora a mudança como parte natural do processo, permitindo que equipes ajustem rapidamente seu rumo e entreguem valor contínuo, mesmo diante da incerteza. Aceitar e se preparar para a mudança é o que garante a sobrevivência e relevância de um projeto.
+Agilidade vs Documentação:
+ Ser ágil não significa abandonar a documentação, mas sim torná-la leve, objetiva e útil. Documentos extensos que não são utilizados acabam atrasando o processo e desperdiçando recursos. Em ambientes ágeis, a documentação existe, mas com foco em apoiar a comunicação e registrar apenas o essencial, priorizando o funcionamento do software em vez de artefatos pesados.
+
+1.2 Feedback e Entregas
+Importância do feedback do cliente:
+ O feedback contínuo do cliente é essencial porque garante que o que está sendo construído está alinhado com as expectativas e necessidades reais. Ele reduz riscos, evita retrabalho e permite adaptar rapidamente o produto. O cliente deixa de ser apenas um solicitante e se torna um participante ativo do desenvolvimento, sendo consultado frequentemente, por meio de revisões, demonstrações e testes de aceitação.
+Frequência ideal para entregas incrementais:
+ A entrega deve ocorrer em ciclos curtos – de semanas a poucos meses – com preferência para intervalos mais curtos. Essa prática permite que a equipe valide o progresso, obtenha feedback rapidamente e adapte a direção do projeto conforme necessário. Pequenas entregas contínuas são mais fáceis de controlar e testar, além de darem ao cliente sensação de avanço constante.
+
+
+
+2. Princípios e Custos
+2.1 Princípios Ágeis
+1. Entregas frequentes de software funcional:
+ Esse princípio destaca a importância de entregar versões operacionais do sistema com frequência, garantindo que o cliente tenha acesso contínuo ao progresso do projeto e possa validar suas funcionalidades em tempo real.
+2. Trabalho colaborativo entre cliente e desenvolvedores:
+ A colaboração diária entre as áreas técnica e de negócio evita mal-entendidos e promove decisões mais rápidas e eficazes. Esse contato constante alinha as expectativas e aumenta a qualidade do produto entregue.
+3. Equipes auto-organizadas produzem melhores soluções:
+ Quando a equipe tem autonomia e confiança, ela assume responsabilidade pelo produto e propõe soluções criativas e eficientes, aproveitando ao máximo as habilidades individuais e coletivas dos membros.
+
+2.2 Custos de Mudança
+Nos métodos tradicionais, mudanças feitas nas etapas finais são caras e demoradas, pois impactam diretamente componentes já finalizados, exigindo retrabalho em larga escala. Já no ágil, mudanças podem ser absorvidas mais facilmente devido à entrega incremental e à integração contínua. O custo da mudança é “achatado”, o que proporciona mais flexibilidade para ajustes de escopo e funcionalidades, mesmo em estágios avançados do projeto. Isso é fundamental em ambientes voláteis.
+
+2.3 Princípio KISS
+O princípio KISS (“Keep it simple, stupid”) prega que a solução mais simples deve ser preferida. Evitar complexidade desnecessária torna o sistema mais fácil de entender, modificar e testar, contribuindo para a agilidade e a adaptabilidade do software.
+
+
+
+3. Metodologias Principais
+3.1 Programação Extrema (XP)
+Definição:
+ A Programação Extrema (XP) é uma metodologia ágil focada em práticas técnicas que aumentam a qualidade do código e a capacidade de responder a mudanças. Ela prioriza simplicidade, comunicação entre desenvolvedores, testes contínuos e feedback rápido. XP valoriza a excelência técnica e encoraja a refatoração constante para manter o sistema limpo e adaptável.
+3 práticas principais do XP:
+Testes automatizados: os testes são escritos antes do código (test-first), garantindo que o sistema atenda aos requisitos desde o início.
+
+
+Programação em pares: dois desenvolvedores trabalham juntos, trocando ideias e revisando o código em tempo real.
+
+
+Refatoração contínua: o código é constantemente melhorado, sem alterar seu comportamento externo, para torná-lo mais simples e eficiente.
+
+
+2 vantagens da programação em pares:
+Qualidade imediata: o código é revisado enquanto é escrito, o que reduz bugs e melhora a padronização.
+
+
+Troca de conhecimento: estimula o aprendizado entre os desenvolvedores, tornando o time mais coeso e versátil.
+
+
+
+3.2 Scrum
+Sprint:
+ É um ciclo de desenvolvimento de curta duração (geralmente 2 a 4 semanas) em que a equipe trabalha para entregar um conjunto específico de funcionalidades. Durante o sprint, não se aceitam mudanças no escopo.
+Backlog:
+ É a lista de requisitos priorizados pelo cliente. Pode conter funcionalidades, melhorias ou correções, e serve como base para escolher as tarefas de cada sprint. Ele é revisado frequentemente.
+Como o Scrum melhora o gerenciamento de projetos:
+ O Scrum proporciona transparência por meio das reuniões diárias e revisões ao final de cada sprint. Ele permite adaptação rápida às mudanças, planejamento contínuo e entrega progressiva de valor. A divisão em ciclos curtos ajuda na previsão de prazos e controle do progresso.
+
+3.3 Integração das Práticas
+As práticas do XP se integram para garantir entregas com alta qualidade e baixo custo de mudança. Os testes automatizados validam continuamente o sistema, identificando rapidamente falhas. A integração contínua assegura que o código novo funcione bem com o existente, evitando grandes conflitos. As histórias de usuário, por sua vez, alinham o desenvolvimento com as necessidades reais do cliente. Juntas, essas práticas promovem entregas confiáveis, rápidas e adaptáveis a qualquer alteração.
+
+
+
+4. Reflexão e Aplicação
+4.1 Quando Usar
+Scrum é indicado para projetos com escopo variável, equipes maiores e que precisam de acompanhamento constante, como no desenvolvimento de um sistema ERP em uma empresa de médio porte.
+ XP é mais adequado para equipes pequenas, focadas em qualidade técnica, como em startups que desenvolvem um produto inovador e precisam iterar rapidamente com código limpo e bem testado.
+
+4.2 Aprendizado Pessoal
+Conceito novo:
+ O conceito de "test-first", foi algo novo para mim e mudou a forma de como entender o desenvolvimento focado na necessidade real.
+Prática mais desafiadora:
+ A programação em pares parece ser a mais difícil de implementar, pois exige harmonia entre os desenvolvedores, foco constante e habilidade de comunicação clara, o que pode ser desafiador em equipes com estilos diferentes.
+
+` },
             { name: "Gabriel Alcantara Abreu", code: "20231SI007", resumo: `` },
 
             { name: "Gabriela Benevides Pereira Marques", code: "20231SI010", resumo: 

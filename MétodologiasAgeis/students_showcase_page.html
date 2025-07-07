@@ -429,6 +429,55 @@
 
         // Real student data
         const students = [
+
+       
+            { name: "Henrique Machado de Oliveira", code: "20231SI002", resumo: `Metodologias Ágeis em Engenharia de Software
+1. Fundamentos da Agilidade
+1.1 Conceitos Centrais
+Manifesto Ágil: Ser ágil significa valorizar indivíduos e interações acima de processos rígidos, software funcionando acima de documentação excessiva, colaboração com clientes acima de negociações contratuais, e capacidade de resposta a mudanças acima de seguir planos fixos. A agilidade representa uma filosofia que reconhece que o desenvolvimento de software é uma atividade humana colaborativa, onde a adaptabilidade e a comunicação são fundamentais para o sucesso.
+Mudança como essência: A mudança é considerada fundamental no desenvolvimento de software porque é inevitável e constante. Requisitos mudam, tecnologias evoluem, prioridades do cliente se alteram e equipes se modificam. Em vez de resistir a essas mudanças, a agilidade as abraça como "o coração e a alma do software", transformando-as em vantagem competitiva através de processos adaptativos.
+Agilidade vs Documentação: Ser ágil não significa ignorar documentação, mas sim criar apenas documentos que agreguem valor real e serão consultados posteriormente no processo. A abordagem ágil prioriza artefatos essenciais e funcionais, eliminando documentação desnecessária que pode atrasar o desenvolvimento sem benefícios práticos.
+1.2 Feedback e Entregas
+Importância do feedback do cliente: O feedback do cliente é crucial porque permite adaptações apropriadas e garante que o produto final atenda às necessidades reais. Para estimulá-lo, deve-se entregar protótipos operacionais ou incrementos de software funcionais que o cliente possa avaliar concretamente, ao invés de apenas especificações abstratas.
+Frequência ideal para entregas: As entregas incrementais devem ocorrer em períodos curtos, preferencialmente de algumas semanas a alguns meses, priorizando intervalos menores. Essa frequência permite que as adaptações acompanhem o ritmo das mudanças e forneçam feedback contínuo para direcionamento do projeto.
+
+2. Princípios e Custos
+2.1 Princípios Ágeis
+Dos 12 princípios ágeis, considero mais importantes:
+Princípio 1 - Satisfação do cliente: A prioridade máxima deve ser satisfazer o cliente através de entregas antecipadas e contínuas de software funcionando, pois isso demonstra valor tangível rapidamente.
+Princípio 6 - Comunicação presencial: A conversa aberta e presencial é o método mais eficiente de transmitir informações, pois elimina ruídos de comunicação e acelera o entendimento mútuo.
+Princípio 10 - Simplicidade: A arte de maximizar o volume de trabalho não realizado é essencial, focando apenas no que realmente agrega valor e evitando complexidade desnecessária.
+2.2 Custos de Mudança
+Em projetos tradicionais, os custos de mudança aumentam exponencialmente conforme o projeto avança. Nos projetos ágeis, através de práticas como entregas incrementais, testes contínuos e programação em pares, a curva de custos se "achata", permitindo implementar mudanças mesmo em fases posteriores sem impacto dramático nos custos ou prazos.
+2.3 Princípio KISS
+"Keep it simple, stupid!" significa sempre preferir soluções simples a representações complexas. É fundamental na agilidade porque reduz complexidade desnecessária, facilita manutenção e permite foco no que realmente importa.
+
+3. Metodologias Principais
+3.1 Programação Extrema (XP)
+Definição: XP é uma metodologia ágil que emprega paradigma orientado a objetos e enfatiza práticas extremas de desenvolvimento, focando em quatro atividades principais: planejamento, projeto, codificação e testes, com forte ênfase na simplicidade e refatoração contínua.
+Três práticas principais:
+Test-First Development: Escrever testes antes do código para garantir implementação focada e feedback imediato
+Refatoração: Melhoramento contínuo da estrutura interna do código sem alterar comportamento externo
+Integração Contínua: Integração diária do código para evitar problemas de compatibilidade e detectar erros precocemente
+Programação em Pares - Vantagens:
+Solução de problemas em tempo real: Duas perspectivas diferentes aceleram a identificação e resolução de problemas complexos
+Garantia de qualidade imediata: O código é revisado continuamente durante sua criação, reduzindo defeitos
+3.2 Scrum
+Sprint: Unidades de trabalho com prazo fixo (tipicamente 30 dias) para atingir requisitos específicos do backlog, onde mudanças não são introduzidas durante a execução, criando ambiente estável de curto prazo.
+Backlog: Lista priorizada de requisitos ou funcionalidades que fornecem valor comercial ao cliente, onde itens podem ser adicionados a qualquer momento para introduzir mudanças.
+Melhoria no gerenciamento: Scrum melhora o gerenciamento através de reuniões diárias curtas (15 minutos) focadas em progresso, obstáculos e planejamento, criando transparência e comunicação constante na equipe.
+3.3 Integração das Práticas
+As práticas do XP trabalham sinergicamente: histórias de usuário definem requisitos claros, testes automatizados garantem qualidade e permitem refatoração segura, integração contínua detecta problemas rapidamente, e a refatoração mantém o código limpo e adaptável. Juntas, essas práticas criam um ambiente onde mudanças podem ser implementadas com baixo risco e custo controlado.
+
+4. Reflexão e Aplicação
+4.1 Quando Usar
+Scrum: Ideal para projetos com requisitos que mudam frequentemente e onde o gerenciamento e organização da equipe são críticos. Exemplo: desenvolvimento de produtos digitais com feedback constante do mercado.
+XP: Melhor para projetos onde qualidade técnica é fundamental e mudanças nos requisitos são constantes. Exemplo: sistemas críticos onde bugs podem ter alto impacto e refatoração frequente é necessária.
+4.2 Aprendizado Pessoal
+Conceito novo: O conceito de "achatar a curva de custos de mudança" era novo para mim. A ideia de que práticas ágeis podem tornar mudanças tardias menos custosas contraria a intuição tradicional.
+Prática mais desafiadora: Considero a Programação em Pares a mais desafiadora, pois requer mudança cultural significativa, coordenação constante entre desenvolvedores e pode gerar resistência inicial por questões de ego e diferentes estilos de trabalho.` },
+           
+
             { name: "Adson Alves Mendonça", code: "20231SI034", resumo: `` },
 
             { name: "Antonio Augusto Diogo Araujo da Silva", code: "20231SI020", resumo: `1 - Fundamentos da Agilidade
@@ -478,7 +527,7 @@ Acredito que o Scrum é mais útil em projetos onde há necessidade de organiza�
 Algo novo para mim foi entender como a programação em pares pode ser eficiente. Eu imaginava que duas pessoas no mesmo código seria desperdício, mas vi que, na prática, isso reduz retrabalho e melhora o aprendizado. A prática que considero mais difícil de implementar é a integração contínua, porque exige muita disciplina da equipe, bons testes automatizados e um ambiente bem estruturado.
 ` },
         
-=======
+
             { name: "Angelo Antonio Lima Silveira Filho", code: "20231SI020", resumo: `Fundamentos da Agilidade
 
 1.1 Conceitos Centrais
@@ -944,7 +993,7 @@ Uma das práticas ágeis mais desafiadoras de implementar é a programação em 
 
 ` },
 
-            { name: "Henrique Machado de Oliveira", code: "20231SI017", resumo: `` },
+     
             { name: "Izabelli de Souza Delcaro", code: "20231SI019", resumo: `` },
             { name: "João Lucas Rodrigues Almeida", code: "20231SI022", resumo: `` },
 
@@ -1549,6 +1598,7 @@ A partir da leitura das páginas sobre Desenvolvimento Ágil, foram analisados o
             { name: "Rubens Soares Viana Neto", code: "20231SI013", resumo: `` },
             { name: "Rui de Souza Fontoura Junior", code: "20231SI025", resumo: `` },
             { name: "Vitor Martins Permanham", code: "20231SI000", resumo: `` }
+
         ];
 
         // Create students

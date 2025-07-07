@@ -121,9 +121,11 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg,
+
                     transparent 0%,
                     rgba(97, 218, 251, 0.05) 50%,
                     transparent 100%);
+
             transition: left 0.6s ease;
         }
 
@@ -428,7 +430,93 @@
         // Real student data
         const students = [
             { name: "Adson Alves Mendonça", code: "20231SI034", resumo: `` },
-            { name: "Angelo Antonio Lima Silveira Filho", code: "20231SI020", resumo: `` },
+            { name: "Angelo Antonio Lima Silveira Filho", code: "20231SI020", resumo: `Fundamentos da Agilidade
+
+1.1 Conceitos Centrais
+
+Manifesto Ágil:
+Ser ágil significa valorizar a colaboração, adaptação e entrega contínua de valor. De acordo com o Manifesto Ágil, prioriza-se indivíduos e interações, software funcionando, colaboração com o cliente e resposta rápida a mudanças. Isso não significa ignorar os itens tradicionais, mas sim entender que os valores mais flexíveis são cruciais para o sucesso em ambientes de constante mudança.
+
+Mudança como essência:
+A mudança é inerente ao desenvolvimento de software porque requisitos, tecnologias e prioridades do cliente evoluem com frequência. Processos ágeis reconhecem isso e se estruturam justamente para abraçar a mudança em vez de evitá-la.
+
+Agilidade vs Documentação:
+Ser ágil não significa eliminar a documentação, mas sim produzir apenas o necessário. A ideia é criar documentos úteis que serão consultados posteriormente, evitando burocracia desnecessária e foco em papéis que não agregam valor direto ao produto.
+
+1.2 Feedback e Entregas
+
+Importância do feedback:
+O feedback do cliente permite corrigir o curso do projeto rapidamente, reduzindo retrabalho. Ele pode ser estimulado com entregas frequentes, demonstrações regulares (demos) e integração direta do cliente à equipe.
+
+Frequência ideal de entregas:
+O ideal é entregar a cada poucas semanas, no máximo a cada dois meses. Intervalos curtos garantem que as mudanças sejam incorporadas com rapidez e que o cliente esteja sempre atualizado com o progresso.
+
+Princípios e Custos
+
+2.1 Princípios Ágeis
+
+Entrega contínua de software funcionando:
+Entregar funcionalidades reais com frequência mostra progresso real e reduz o risco de falhas descobertas tardiamente.
+
+Pessoas motivadas + apoio:
+Dar autonomia e suporte à equipe estimula comprometimento, criatividade e melhores resultados. Quando os membros sentem que têm voz ativa e são valorizados, o ambiente se torna mais colaborativo e produtivo.
+
+Simplicidade ("maximizar o trabalho não feito"):
+Evitar o excesso de tarefas, modelos ou código que não agregam valor direto. Isso agiliza o desenvolvimento e reduz retrabalho.
+
+2.2 Custos de Mudança
+
+Em processos tradicionais, o custo das mudanças aumenta drasticamente ao longo do tempo. Já nos métodos ágeis, como há entregas incrementais, testes contínuos e feedback frequente, as mudanças são incorporadas com menos impacto em custo e tempo. Isso torna o projeto mais flexível e adaptável.
+
+2.3 Princípio KISS
+
+O princípio KISS ("Keep It Simple, Stupid") incentiva soluções simples e funcionais. Em agilidade, é fundamental para manter o foco no essencial e facilitar manutenções futuras.
+
+Metodologias Principais
+
+3.1 Programação Extrema (XP)
+
+Definição:
+XP é uma metodologia ágil focada em qualidade técnica, colaboração e simplicidade, com entregas frequentes e adaptação constante baseada em testes e feedback.
+
+Três práticas principais do XP:
+
+Testes de unidade automatizados antes da codificação (Test-First)
+
+Refatoração constante do código
+
+Integração contínua
+
+Programação em Pares – Vantagens:
+
+Maior qualidade do código por revisões em tempo real
+
+Resolução de problemas mais rápida com colaboração ativa
+
+3.2 Scrum
+
+Sprint e Backlog:
+Sprint é um ciclo fixo (geralmente 2 a 4 semanas) onde funcionalidades do backlog (lista priorizada de requisitos) são desenvolvidas. Durante um sprint, o escopo não muda, garantindo foco.
+
+Como Scrum melhora o gerenciamento:
+Scrum promove transparência, foco e adaptação constante. As reuniões diárias e entregas curtas mantêm todos alinhados, identificam obstáculos rapidamente e permitem reagir a mudanças sem comprometer o projeto.
+
+3.3 Integração das Práticas
+
+As histórias de usuário definem o que deve ser feito; os testes automatizados garantem que está correto; e a integração contínua une todos os códigos e executa testes rapidamente. Juntas, essas práticas permitem detectar erros logo no início e adaptar o software sem altos custos.
+
+Reflexão e Aplicação
+
+4.1 Quando Usar
+
+Scrum: é ideal em equipes multifuncionais com foco em gerenciamento e entrega de valor, como em projetos de produto para startups, onde iteração e validação com o cliente são constantes.
+
+XP: é melhor para projetos que exigem forte rigor técnico e mudanças frequentes no código, como em sistemas financeiros ou ferramentas internas de alta complexidade técnica.
+
+4.2 Aprendizado Pessoal
+
+Um conceito novo para mim foi a programação em pares, especialmente sua eficácia para revisão de código contínua e foco no problema.
+A prática mais desafiadora parece ser a integração contínua, pois exige disciplina da equipe e uma estrutura de testes bem montada para funcionar corretamente sem causar instabilidades.` },
             { name: "Antonio Augusto Diogo Araujo da Silva", code: "20231SI012", resumo: `` },
             { name: "Caio Torres Seares", code: "20231SI008", resumo: `
 1.1 Conceitos Centrais:
@@ -1238,8 +1326,8 @@ A partir da leitura das páginas sobre Desenvolvimento Ágil, foram analisados o
                             <div class="student-code">${student.code}</div>
                         </div>
                     </div>
-                    <textarea 
-                        class="student-text-area" 
+                    <textarea
+                        class="student-text-area"
                         placeholder="Descreva aqui o seu resumo..."
                         rows="8"
                         data-student="${student.name}"
@@ -1372,5 +1460,4 @@ A partir da leitura das páginas sobre Desenvolvimento Ágil, foram analisados o
         window.addEventListener('load', revealOnScroll);
     </script>
 </body>
-
 </html>
